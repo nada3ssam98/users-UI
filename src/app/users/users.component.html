@@ -1,0 +1,47 @@
+<div class="container">
+    <h2 class="text-center m-2">List of Users</h2>
+
+<!--  new user -->
+<div *ngIf="!selectedUser" class="my-5">
+  <h3>Add New User</h3>
+  <div class="col-md-4 mb-2">
+    <input #name placeholder="Name" class="form-control" type="text"/>
+  </div>
+  <div class="col-md-4">
+    <input #email placeholder="Email" class="form-control" type="email"/>
+  </div>
+  <button (click)="addUser({ id: users.length + 1, name: name.value, email: email.value })" class="btn btn-primary m-2">
+    Add
+  </button>
+</div>
+
+<!-- list of users -->
+<div class="container my-3">
+  <div class="row g-3">
+    <div class="col-md-4" *ngFor="let user of users">
+      <div class="card" style="width: 18rem;">
+        <img class="card-img-top" height="250" src="../../assets/images/user.jpg" alt="Card image cap">
+        <div class="card-body">
+          <h4 class="card-title">User Data</h4>
+          <h6 class="card-title">Username: {{ user.name }}</h6>
+          <p class="card-text">Email: {{ user.email }}</p>
+          <button (click)="deleteUser(user.id)" class="btn btn-danger m-1">Delete</button>
+          <button (click)="selectUser(user)" class="btn btn-primary">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- edit user -->
+<div *ngIf="selectedUser">
+  <h3>Edit User</h3>
+  <input [(ngModel)]="selectedUser.name" placeholder="Name" class="form-control"/>
+  <input [(ngModel)]="selectedUser.email" placeholder="Email" class="form-control"/>
+  <button (click)="editUser(selectedUser)" class="btn btn-success m-2">
+    Save
+  </button>
+  <button (click)="cancelEdit()" class="btn btn-secondary m-2">Cancel</button>
+</div>
+
+</div>
